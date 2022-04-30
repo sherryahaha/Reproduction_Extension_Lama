@@ -1,0 +1,7 @@
+- model.path=/content/lama/big-lama
+- category=person
+- detect_model=segmentation
+- detect_threthold=0.7
+- indir=/content/lama/data_for_prediction
+- outdir=/content/output
+- dataset.img_suffix=.jpg

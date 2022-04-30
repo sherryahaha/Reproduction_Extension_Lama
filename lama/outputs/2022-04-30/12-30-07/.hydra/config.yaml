@@ -1,0 +1,14 @@
+indir: /content/lama/data_for_prediction
+outdir: /content/output
+category: person
+detect_model: segmentation
+detect_threthold: 0.7
+model:
+  path: /content/lama/big-lama
+  checkpoint: best.ckpt
+dataset:
+  kind: default
+  img_suffix: .jpg
+  pad_out_to_modulo: 8
+device: cuda
+out_key: inpainted
