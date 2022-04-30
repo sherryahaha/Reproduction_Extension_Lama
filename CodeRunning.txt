@@ -1,0 +1,43 @@
+To run the code, we need to do the following things.
+
+1. Reproduction
+1). For train.py & gen_mask_dataset.py, add:
+os.environ['USER'] = 'root'
+os.environ['TORCH_HOME'] = '/content/lama'
+import sys
+sys.path.append('/content/lama/')
+
+
+2). To train the model on the dataset whose size is smaller than 30000(the dataset size of the original paper), replace the fetch_data\train_shuffled.flist, fetch_data\val_shuffled.flist and fetch_data\celebahq_dataset_prepare.sh with our files in the replacement_files folder.
+
+3) To load the pertained model, we change the code in train.py:
+
+from saicinpainting.training.trainers import load_checkpoint
+import yaml
+	
+checkpoint_path = "/content/lama/LaMa_models/lama-celeba-hq/lama-fourier/models/best.ckpt" 
+
+training_model = load_checkpoint(config, checkpoint_path, strict=False)
+
+#training_model = make_training_model(config)
+
+
+
+2. Extension
+1). Replace the predict.py with detection.py.
+
+2). For /content/lama/configs/prediction/default.yaml, add：
+category: no
+detect_model: no
+detect_threthold: no
+
+3). Run the code
+!PYTHONPATH=. TORCH_HOME=$(pwd) python3 bin/predict.py model.path=/content/lama/big-lama category=person detect_model=segmentation detect_threthold=0.7 indir=$(pwd)/data_for_prediction outdir=/content/output  dataset.img_suffix=.jpg
+
+
+
+
+
+
+
+
